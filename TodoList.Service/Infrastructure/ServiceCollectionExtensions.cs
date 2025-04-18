@@ -6,9 +6,10 @@ namespace TodoList.Service.Infrastructure;
 
 public static class ServiceCollectionExtensions
 {
-  public static void RegisterServices(this IServiceCollection services)
+  public static void RegisterServices(this IServiceCollection services, WebApplicationBuilder builder)
   {
-    services.AddDbContext<TodoListContext>(opt => opt.UseInMemoryDatabase("TodoList"));
+    var connectionString = builder.Configuration.GetConnectionString("TodoListDbConnection");
+    services.AddDbContext<TodoListContext>(opt => opt.UseNpgsql(connectionString));
     services.AddDatabaseDeveloperPageExceptionFilter();
 
     services.AddEndpointsApiExplorer();
