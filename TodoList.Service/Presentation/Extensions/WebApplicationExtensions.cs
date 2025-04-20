@@ -1,0 +1,51 @@
+using Microsoft.EntityFrameworkCore;
+using TodoList.Service.Infrastructure.Contexts;
+
+namespace TodoList.Service.Presentation.Extensions;
+
+public static class WebApplicationExtensions
+{
+  public static void ConfigureWebApplication(this WebApplication app)
+  {
+    app
+      .ConfigureSwagger()
+      .ConfigureAuth()
+      .ConfigureDatabase();
+  }
+
+  private static WebApplication ConfigureSwagger(this WebApplication app)
+  {
+    if (app.Environment.IsDevelopment())
+    {
+      app.UseOpenApi();
+      app.UseSwaggerUi(config =>
+      {
+        config.DocumentTitle = "TodoAPI";
+        config.Path = "/swagger";
+        config.DocumentPath = "/swagger/{documentName}/swagger.json";
+        config.DocExpansion = "list";
+      });
+    }
+
+    return app;
+  }
+
+  private static WebApplication ConfigureAuth(this WebApplication app)
+  {
+    app.UseAuthentication();
+    app.UseAuthorization();
+
+    return app;
+  }
+
+  private static WebApplication ConfigureDatabase(this WebApplication app)
+  {
+    using (var scope = app.Services.CreateScope())
+    {
+      var db = scope.ServiceProvider.GetRequiredService<TodoListContext>();
+      db.Database.Migrate();
+    }
+
+    return app;
+  }
+}

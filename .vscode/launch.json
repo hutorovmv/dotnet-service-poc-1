@@ -1,0 +1,37 @@
+{
+  "configurations": [
+    {
+      "name": "Attach to Identity.Service",
+      "type": "coreclr",
+      "request": "attach",
+      "processName": "dotnet",
+      "pipeTransport": {
+        "pipeProgram": "docker",
+        "pipeArgs": ["exec", "-i", "dotnet-service-poc-1-identityservice-1"],
+        "debuggerPath": "/vsdbg/debug-entry",
+        "pipeCwd": "${workspaceFolder}",
+        "quoteArgs": false
+      },
+      "sourceFileMap": {
+        "/app": "${workspaceFolder}/Identity.Service"
+      }
+    },
+    {
+      "name": "Attach TodoList.Service to .NET in Docker",
+      "type": "coreclr",
+      "request": "attach",
+      "processName": "dotnet",
+      "pipeTransport": {
+        "pipeProgram": "docker",
+        "pipeArgs": ["exec", "-i", "dotnet-service-poc-1-todolistservice-1"],
+        "debuggerPath": "/vsdbg/debug-entry",
+        "pipeCwd": "${workspaceFolder}",
+        "quoteArgs": false
+      },
+      "sourceFileMap": {
+        "/app":"${worspaceFolder}/TodoList.Service"
+      },
+      "justMyCode": true
+    }
+  ],
+}

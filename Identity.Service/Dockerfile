@@ -21,5 +21,5 @@ COPY .vsdbg /vsdbg
 RUN chmod +x /vsdbg/vsdbg
 # === Only for debug in vs code
 
-EXPOSE 8080
-ENTRYPOINT ["dotnet", "TodoList.Service.dll"]
+EXPOSE 8081
+ENTRYPOINT ["dotnet", "Identity.Service.dll"]
