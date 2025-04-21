@@ -1,0 +1,81 @@
+version: '3.9'
+
+services:
+  identityservice:
+    build:
+      context: .
+      dockerfile: Identity.Service/Dockerfile
+    ports:
+      - "8081:8080" # http
+      - "8444:8443" # https
+      - "5001:5005" # debug
+    environment:
+      - ASPNETCORE_ENVIRONMENT
+      - ASPNETCORE__Kestrel__Certificates__Default__Path
+      - ASPNETCORE__Kestrel__Certificates__Default__Password
+      - ConnectionStrings__TodoListDbConnection
+      - Jwt__Issuer
+      - Jwt__Audience
+      - Jwt__Secret
+      - Jwt__ValidityHours
+    depends_on:
+      - db
+    networks:
+      - backend
+
+  todolistservice:
+    build:
+      context: .
+      dockerfile: TodoList.Service/Dockerfile
+    ports:
+     - "8080:8080" # http
+     - "8443:8443" # https
+     - "5002:5005" # debug
+    environment:
+      - ASPNETCORE_ENVIRONMENT
+      - ASPNETCORE__Kestrel__Certificates__Default__Path
+      - ASPNETCORE__Kestrel__Certificates__Default__Password
+      - ConnectionStrings__TodoListDbConnection
+      - Jwt__Issuer
+      - Jwt__Audience
+      - Jwt__Secret
+      - Jwt__ValidityHours
+    depends_on:
+      - db
+      - identityservice
+    networks:
+      - backend
+
+  db:
+    image: postgres:16
+    restart: always
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - "5050:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL
+      - PGADMIN_DEFAULT_PASSWORD
+    depends_on:
+      - db
+    networks:
+      - backend
+
+volumes:
+  pgdata:
+
+networks:
+  backend:
+    driver: bridge

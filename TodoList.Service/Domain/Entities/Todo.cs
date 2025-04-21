@@ -1,13 +1,15 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-namespace TodoList.Service.Domain;
+namespace TodoList.Service.Domain.Entities;
 
 public class Todo
 {
-  public int Id { get; set;}
+  public int Id { get; set; }
   public string? Name { get; set; }
   public bool IsComplete { get; set; }
+
+  [JsonIgnore]
+  public string UserId { get; set; } = "";
 
   [JsonIgnore]
   public bool IsNull { get; private set; } = false;
