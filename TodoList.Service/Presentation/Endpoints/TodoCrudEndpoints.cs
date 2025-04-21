@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Service.Utils.Models;
 using TodoList.Service.Domain.Entities;
 using TodoList.Service.Domain.Repositories;
 using TodoList.Service.Infrastructure.Extensions;
@@ -33,14 +34,15 @@ public static class TodoCrudEndpoints
 
     return todo is { IsNull: true }
       ? Results.NotFound()
-      : Results.Ok(todo);
+      : Results.Ok(new ApiResponse<Todo>(true, todo));
   }
 
   [Authorize]
   private static async Task<IResult> GetAllAsync(ITodoRepository todoRepository, ClaimsPrincipal principal)
   {
     var user = principal.ToUserEntity();
-    return Results.Ok(await todoRepository.GetAllAsync(user.Id));
+    var todos = await todoRepository.GetAllAsync(user.Id);
+    return Results.Ok(new ApiResponse<IEnumerable<Todo>>(true, todos));
   }
 
   [Authorize]
@@ -57,7 +59,7 @@ public static class TodoCrudEndpoints
     var user = principal.ToUserEntity();
 
     var newTodo = await todoRepository.CreateAsync(todo, user.Id);
-    return Results.Created($"api/todo/{newTodo.Id}", newTodo);
+    return Results.Created($"api/todo/{newTodo.Id}", new ApiResponse<Todo>(true, newTodo));
   }
 
   [Authorize]
@@ -69,7 +71,7 @@ public static class TodoCrudEndpoints
   {
     if (string.IsNullOrWhiteSpace(todo.Name))
     {
-      return Results.BadRequest(NameIsRequiredError);
+      return Results.BadRequest(new ApiResponse<object>(false, todo, NameIsRequiredError));
     }
 
     var user = principal.ToUserEntity();
@@ -77,7 +79,7 @@ public static class TodoCrudEndpoints
     var updated = await todoRepository.UpdateAsync(id, todo, user.Id);
     return updated is { IsNull: true }
       ? Results.NotFound()
-      : Results.Ok(updated);
+      : Results.Ok(new ApiResponse<Todo>(true, updated));
   }
 
   [Authorize]
@@ -92,6 +94,6 @@ public static class TodoCrudEndpoints
 
     return deleted is { IsNull: true }
       ? Results.NotFound()
-      : Results.Ok(deleted);
+      : Results.Ok(new ApiResponse<Todo>(true, deleted));
   }
 }

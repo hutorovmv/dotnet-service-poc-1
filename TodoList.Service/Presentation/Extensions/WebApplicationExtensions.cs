@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Service.Utils.Middlewares;
 using TodoList.Service.Infrastructure.Contexts;
 
 namespace TodoList.Service.Presentation.Extensions;
@@ -11,7 +12,8 @@ public static class WebApplicationExtensions
       .ConfigureSwagger()
       .ConfigureAuth()
       .ConfigureDatabase()
-      .ConfigureHttps();
+      .ConfigureHttps()
+      .ConfigureMiddleware();
   }
 
   private static WebApplication ConfigureSwagger(this WebApplication app)
@@ -53,6 +55,13 @@ public static class WebApplicationExtensions
   private static WebApplication ConfigureHttps(this WebApplication app)
   {
     app.UseHttpsRedirection();
+    return app;
+  }
+
+  private static WebApplication ConfigureMiddleware(this WebApplication app)
+  {
+    app.UseMiddleware<CorrelationIdMiddleware>();
+    app.UseMiddleware<ExceptionsMiddleware>();
     return app;
   }
 }

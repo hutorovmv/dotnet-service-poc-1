@@ -2,6 +2,7 @@ using Identity.Service.Infrastructure.Services;
 using Identity.Service.Presentation.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Service.Utils.Models;
 
 namespace TodoList.Service.Presentation.Endpoints;
 
@@ -19,7 +20,8 @@ public static class IdentityEndpoints
 
   private static async Task<IResult> RegisterAsync(
     UserRegistrationModel model,
-    UserManager<IdentityUser> userManager)
+    UserManager<IdentityUser> userManager,
+    HttpContext http)
   {
     var user = new IdentityUser(model.UserName)
     {
@@ -28,8 +30,12 @@ public static class IdentityEndpoints
     var result = await userManager.CreateAsync(user, model.Password);
 
     return result.Succeeded
-      ? Results.Created()
-      : Results.BadRequest(result.Errors);
+      ? Results.Created("", new ApiResponse<object>(true))
+      : Results.BadRequest(new ApiResponse<UserRegistrationModel>(
+          false,
+          model,
+          result.Errors.Select(e => e.Description).ToArray()
+        ));
   }
 
   private static async Task<IResult> LoginAsync(
@@ -51,6 +57,9 @@ public static class IdentityEndpoints
     }
 
     var token = tokenService.GenerateToken(user);
-    return Results.Ok(new LoginResponseModel(token, user.Id, user.UserName ?? ""));
+    return Results.Ok(new ApiResponse<LoginResponseModel>(
+      true,
+      new LoginResponseModel(token, user.Id, user.UserName ?? "")
+    ));
   }
 }

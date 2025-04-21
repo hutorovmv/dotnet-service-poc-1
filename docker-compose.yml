@@ -2,7 +2,9 @@ version: '3.9'
 
 services:
   identityservice:
-    build: ./Identity.Service
+    build:
+      context: .
+      dockerfile: Identity.Service/Dockerfile
     ports:
       - "8081:8080" # http
       - "8444:8443" # https
@@ -22,7 +24,9 @@ services:
       - backend
 
   todolistservice:
-    build: ./TodoList.Service
+    build:
+      context: .
+      dockerfile: TodoList.Service/Dockerfile
     ports:
      - "8080:8080" # http
      - "8443:8443" # https

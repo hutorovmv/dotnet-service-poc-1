@@ -1,5 +1,7 @@
 using Identity.Service.Infrastructure.Contexts;
+using NSwag.AspNetCore;
 using Microsoft.EntityFrameworkCore;
+using Service.Utils.Middlewares;
 
 namespace Identity.Service.Presentation.Extensions;
 
@@ -10,7 +12,8 @@ public static class WebApplicationExtensions
     app
       .ConfigureSwagger()
       .ConfigureDatabase()
-      .ConfigureHttps();
+      .ConfigureHttps()
+      .ConfigureMiddleware();
   }
 
   private static WebApplication ConfigureSwagger(this WebApplication app)
@@ -44,6 +47,13 @@ public static class WebApplicationExtensions
   private static WebApplication ConfigureHttps(this WebApplication app)
   {
     app.UseHttpsRedirection();
+    return app;
+  }
+
+  private static WebApplication ConfigureMiddleware(this WebApplication app)
+  {
+    app.UseMiddleware<CorrelationIdMiddleware>();
+    app.UseMiddleware<ExceptionsMiddleware>();
     return app;
   }
 }

@@ -1,27 +1,35 @@
+# === Stage 1 ===
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
 
-COPY *.csproj ./
-RUN dotnet restore
+# COPY everything needed from root context
+COPY TodoList.Service/*.csproj ./TodoList.Service/
+COPY TodoList.Service/nuget.config ./TodoList.Service/
+COPY nupkgs ./nupkgs
 
-COPY . ./
-RUN dotnet publish -c Debug -o out
+# Restore using custom config (which points to /app/nupkgs)
+WORKDIR /app/TodoList.Service
+RUN dotnet restore --configfile nuget.config
 
+# Copy everything else inside TodoList.Service and publish
+COPY ./TodoList.Service .
+RUN dotnet publish TodoList.Service.csproj -c Release -o out
+
+# === Stage 2 ===
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
 WORKDIR /app
-COPY --from=build /app/out ./
+COPY --from=build /app/TodoList.Service/out ./
 
-# === Only for debug in vs code
-RUN apt-get update \
-  && apt-get install -y unzip curl \
-  && mkdir -p /vsdbg \
-  && curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l /vsdbg
+# === Only needed for debug in vs code
+# RUN apt-get update \
+#   && apt-get install -y unzip curl \
+#   && mkdir -p /vsdbg \
+#   && curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l /vsdbg
+# COPY .vsdbg /vsdbg
+# RUN chmod +x /vsdbg/vsdbg
 
-COPY .vsdbg /vsdbg
-RUN chmod +x /vsdbg/vsdbg
-# === Only for debug in vs code
-
-COPY certs/https/development.pfx /https/development.pfx
+COPY TodoList.Service/certs/https/development.pfx /https/development.pfx
 
 EXPOSE 8080
+EXPOSE 8443
 ENTRYPOINT ["dotnet", "TodoList.Service.dll"]
