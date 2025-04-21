@@ -4,10 +4,13 @@ services:
   identityservice:
     build: ./Identity.Service
     ports:
-      - "8081:8080"
-      - "5005:5005"
+      - "8081:8080" # http
+      - "8444:8443" # https
+      - "5001:5005" # debug
     environment:
       - ASPNETCORE_ENVIRONMENT
+      - ASPNETCORE__Kestrel__Certificates__Default__Path
+      - ASPNETCORE__Kestrel__Certificates__Default__Password
       - ConnectionStrings__TodoListDbConnection
       - Jwt__Issuer
       - Jwt__Audience
@@ -21,9 +24,13 @@ services:
   todolistservice:
     build: ./TodoList.Service
     ports:
-     - "8080:8080"
+     - "8080:8080" # http
+     - "8443:8443" # https
+     - "5002:5005" # debug
     environment:
       - ASPNETCORE_ENVIRONMENT
+      - ASPNETCORE__Kestrel__Certificates__Default__Path
+      - ASPNETCORE__Kestrel__Certificates__Default__Password
       - ConnectionStrings__TodoListDbConnection
       - Jwt__Issuer
       - Jwt__Audience

@@ -14,7 +14,8 @@ public static class ServiceCollectionExtensions
       .AddDatabase(builder)
       .AddAuth(builder)
       .AddSwagger()
-      .AddServices();
+      .AddServices()
+      .AddCors();
   }
 
   private static IServiceCollection AddDatabase(this IServiceCollection services, WebApplicationBuilder builder)
@@ -53,6 +54,19 @@ public static class ServiceCollectionExtensions
   private static IServiceCollection AddServices(this IServiceCollection services)
   {
     services.AddTransient<ITokenService, TokenService>();
+    return services;
+  }
+
+  private static IServiceCollection ConfigureCors(this IServiceCollection services)
+  {
+    services.AddCors(options =>
+    {
+      options.AddPolicy(
+        "AllowDevelopment",
+        b => b.WithOrigins("https://localhost:*/*", "http://localhost:*/*")
+              .AllowAnyHeader()
+              .AllowAnyMethod());
+    });
     return services;
   }
 }

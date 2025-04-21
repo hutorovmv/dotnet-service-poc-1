@@ -9,7 +9,8 @@ public static class WebApplicationExtensions
   {
     app
       .ConfigureSwagger()
-      .ConfigureDatabase();
+      .ConfigureDatabase()
+      .ConfigureHttps();
   }
 
   private static WebApplication ConfigureSwagger(this WebApplication app)
@@ -37,6 +38,12 @@ public static class WebApplicationExtensions
       db.Database.Migrate();
     }
 
+    return app;
+  }
+
+  private static WebApplication ConfigureHttps(this WebApplication app)
+  {
+    app.UseHttpsRedirection();
     return app;
   }
 }
