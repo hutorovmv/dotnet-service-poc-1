@@ -31,11 +31,6 @@ artifacts/
 # ASP.NET Scaffolding
 ScaffoldingReadMe.txt
 
-# NuGet Packages
-*.nupkg
-# NuGet Symbol Packages
-*.snupkg
-
 # Others
 ~$*
 *~
@@ -58,3 +53,5 @@ nunit-*.xml
 # Contains the bash script that runs vsdbg (debugger)
 # as it can't launch it correctly with pipeline arg
 !.vsdbg
+# Do not ignore local nugets folder
+!nupkgs
