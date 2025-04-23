@@ -1,6 +1,7 @@
 # Todo List Code Experiments
 
 ## Description
+
 The project consists from:
  - Identity.Service
  - TodoList.Service
@@ -12,6 +13,7 @@ Also there is a Service.Utils with utilities for the minimal api.
 It is located in a local nuget source as a nuget package.
 
 ## Guide
+
 To run the project use:
 ```
 docker compose -f docker-compose.yml up --build
@@ -32,6 +34,31 @@ Use the `--build` flag only when downloading new version.
 |`http://localhost:5050`|PostgreSQL Management Page|GUI for the database|Runs only in development mode|`admin@admin.com`|`admin`|
 
 To disable browser warning install the `develpment.pfx` with password `1111` to the Trusted Root Certification Authorities. Then the https will work fine while in development mode (`ASPNETCORE_ENVIRONMENT=Development`).
+
+## Authorization
+
+For authorization in `TodoList.Service` send the `Authorization` header with `Bearer <token>`.
+
+Request example:
+```
+var token = "<token>";
+
+fetch('https://localhost:8443/api/todo', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    "id": 0,
+    "name": "string",
+    "isComplete": true
+  })
+})
+.then(res => res.json())
+.then(data => console.log(data))
+.catch(err => console.error(err));
+```
 
 ## Screenshots
 
