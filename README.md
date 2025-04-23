@@ -14,12 +14,13 @@ It is located in a local nuget source as a nuget package.
 ## Guide
 To run the project use:
 ```
-docker compose -f docker-compose.yml up . --build
+docker compose -f docker-compose.yml up --build
 ```
 To run in debug mode with *pgadmin* service and *vsdbg* in containers use:
 ```
-docker compose -f docker-compose.yml -f docker-compose.debug.yml . --build
+docker compose -f docker-compose.yml -f docker-compose.debug.yml up --build
 ```
+Use the `--build` flag only when downloading new version.
 
 |**URL**|**Resource**|**Purpose**|**Comment**|
 |-------|------------|-----------|-----------|
