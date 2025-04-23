@@ -29,7 +29,7 @@ Use the `--build` flag only when downloading new version.
 |`https://localhost:8444/swagger`|Identity Service Swagger|Identity Service Playground||
 |`https://localhost:8443/swagger`|TodoList Service Swagger|TodoList Service Playground||
 |`https://localhost:5432`|PostgreSQL Server|Main Database||
-|`https://localhost:5050`|PostgreSQL Management Page|GUI for the database|Runs only in development mode|
+|`http://localhost:5050`|PostgreSQL Management Page|GUI for the database|Runs only in development mode|
 
 To disable browser warning install the `develpment.pfx` with password `1111` to the Trusted Root Certification Authorities. Then the https will work fine while in development mode (`ASPNETCORE_ENVIRONMENT=Development`).
 
