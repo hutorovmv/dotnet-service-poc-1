@@ -15,7 +15,7 @@ public static class ServiceCollectionExtensions
       .AddAuth(builder)
       .AddSwagger()
       .AddServices()
-      .ConfigureCors();
+      .ConfigureCors(builder);
   }
 
   private static IServiceCollection AddDatabase(this IServiceCollection services, WebApplicationBuilder builder)
@@ -57,15 +57,22 @@ public static class ServiceCollectionExtensions
     return services;
   }
 
-  private static IServiceCollection ConfigureCors(this IServiceCollection services)
+  private static IServiceCollection ConfigureCors(this IServiceCollection services, WebApplicationBuilder builder)
   {
     services.AddCors(options =>
     {
-      options.AddPolicy(
-        "AllowDevelopment",
-        b => b.WithOrigins("https://localhost:*/*", "http://localhost:*/*")
+      if (builder.Environment.IsDevelopment())
+      {
+        options.AddPolicy(
+          "AllowDevelopment",
+          builder => {
+            builder
+              .SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost")
               .AllowAnyHeader()
-              .AllowAnyMethod());
+              .AllowAnyMethod();
+          }
+        );
+      }
     });
     return services;
   }
