@@ -15,7 +15,7 @@ public static class ServiceCollectionExtensions
       .AddAuth(builder)
       .AddSwagger()
       .AddServices()
-      .AddCors();
+      .ConfigureCors();
   }
 
   private static IServiceCollection AddDatabase(this IServiceCollection services, WebApplicationBuilder builder)
