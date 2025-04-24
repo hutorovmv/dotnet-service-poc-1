@@ -3,27 +3,13 @@ using Identity.Service.Presentation.Extensions;
 using TodoList.Service.Presentation.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.RegisterServices(builder);
+builder.Services.RegisterServices(builder.Configuration);
+builder.Services.RegisterAspNetServices(builder);
 
-var app = ConfigureKestrel(builder).Build();
+var app = builder
+  .ConfigureKestrel()
+  .Build();
 app.ConfigureWebApplication();
 app.RegisterIdentityEndpoints();
 
 app.Run();
-
-WebApplicationBuilder ConfigureKestrel(WebApplicationBuilder builder)
-{
-  builder.WebHost.ConfigureKestrel(options =>
-  {
-    options.ListenAnyIP(8080);
-    options.ListenAnyIP(8443, listenOptions =>
-    {
-      listenOptions.UseHttps(
-        builder.Configuration["ASPNETCORE:Kestrel:Certificates:Default:Path"] ?? "",
-        builder.Configuration["ASPNETCORE:Kestrel:Certificates:Default:Password"] ?? ""
-      );
-    });
-  });
-
-  return builder;
-}

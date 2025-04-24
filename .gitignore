@@ -48,6 +48,8 @@ CodeCoverage/
 TestResult.xml
 nunit-*.xml
 
+.vs
+
 # Contains launch.json for the services debug
 !.vscode/
 # Contains the bash script that runs vsdbg (debugger)

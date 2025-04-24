@@ -1,5 +1,4 @@
 using Identity.Service.Infrastructure.Contexts;
-using NSwag.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Service.Utils.Middlewares;
 
