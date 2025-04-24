@@ -20,7 +20,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
 WORKDIR /app
 COPY --from=build /app/Identity.Service/out ./
 
-COPY Identity.Service/certs/https/development.pfx /https/development.pfx
+COPY certs/https/development.pfx /https/development.pfx
 
 EXPOSE 8080
 EXPOSE 8443
