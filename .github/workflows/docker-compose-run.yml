@@ -8,7 +8,7 @@ on:
     branches: [ develop ]
 
 jobs:
-  build:
+  run_docker_compose:
     runs-on: ubuntu-latest
 
     steps:
