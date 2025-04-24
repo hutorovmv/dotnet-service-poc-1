@@ -1,0 +1,24 @@
+name: 🚀 Docker Compose Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  run_docker_compose:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run Docker Compose
+        run: |
+          docker compose -f docker-compose.yml up -d --build
+
+      - name: Stop Docker Compose
+        if: always()
+        run: docker compose down
