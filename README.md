@@ -1,5 +1,7 @@
 # Todo List Code Experiments
 
+[![Build Status](https://github.com/hutorovmv/dotnet-service-poc-1/actions/workflows/docker-compose-run.yml/badge.svg)](https://github.com/hutorovmv/dotnet-service-poc-1/actions/workflows/<WORKFLOW_FILE>.yml)
+
 ## Description
 
 The project consists from:
