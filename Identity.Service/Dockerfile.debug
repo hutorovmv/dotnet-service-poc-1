@@ -5,9 +5,9 @@ WORKDIR /app
 # COPY everything needed from root context
 COPY Identity.Service/*.csproj ./Identity.Service/
 COPY Identity.Service/nuget.config ./Identity.Service/
-COPY nupkgs ./nupkgs
+COPY packages ./packages
 
-# Restore using custom config (which points to /app/nupkgs)
+# Restore using custom config (which points to /app/packages)
 WORKDIR /app/Identity.Service
 RUN dotnet restore --configfile nuget.config
 

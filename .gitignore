@@ -56,4 +56,4 @@ nunit-*.xml
 # as it can't launch it correctly with pipeline arg
 !.vsdbg
 # Do not ignore local nugets folder
-!nupkgs
+!packages
