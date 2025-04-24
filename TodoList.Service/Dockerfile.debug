@@ -5,9 +5,9 @@ WORKDIR /app
 # COPY everything needed from root context
 COPY TodoList.Service/*.csproj ./TodoList.Service/
 COPY TodoList.Service/nuget.config ./TodoList.Service/
-COPY nupkgs ./nupkgs
+COPY packages ./packages
 
-# Restore using custom config (which points to /app/nupkgs)
+# Restore using custom config (which points to /app/packages)
 WORKDIR /app/TodoList.Service
 RUN dotnet restore --configfile nuget.config
 
