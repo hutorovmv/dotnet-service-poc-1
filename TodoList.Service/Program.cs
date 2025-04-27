@@ -6,7 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.RegisterServices(builder.Configuration);
 builder.Services.RegisterAspNetServices(builder);
 
-var app = builder.ConfigureKestrel().Build();
+var app = builder
+  .ConfigureBuilder()
+  .Build();
 app.ConfigureWebApplication();
 app.RegisterTodoCrudEndpoints();
 

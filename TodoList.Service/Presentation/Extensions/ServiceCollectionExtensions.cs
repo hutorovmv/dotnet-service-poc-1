@@ -1,4 +1,5 @@
 using System.Text;
+using CorrelationId.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using NSwag;
@@ -13,6 +14,7 @@ public static class ServiceCollectionExtensions
   {
     services
       .AddAuth(builder)
+      .AddCorrelationId()
       .AddSwagger()
       .ConfigureCors(builder);
   }
@@ -37,6 +39,18 @@ public static class ServiceCollectionExtensions
         };
       });
     services.AddAuthorization();
+
+    return services;
+  }
+
+  private static IServiceCollection AddCorrelationId(this IServiceCollection services)
+  {
+    services.AddDefaultCorrelationId(options =>
+    {
+      options.IncludeInResponse = true;
+      options.RequestHeader = "X-Correlation-ID";
+      options.UpdateTraceIdentifier = true;
+    });
 
     return services;
   }

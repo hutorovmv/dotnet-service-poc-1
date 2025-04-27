@@ -1,5 +1,7 @@
 using System.Security.Claims;
+using System.Text.Json;
 using Microsoft.AspNetCore.Authorization;
+using Serilog;
 using Service.Utils.Models;
 using TodoList.Service.Domain.Entities;
 using TodoList.Service.Domain.Repositories;
@@ -41,6 +43,8 @@ public static class TodoCrudEndpoints
   private static async Task<IResult> GetAllAsync(ITodoRepository todoRepository, ClaimsPrincipal principal)
   {
     var user = principal.ToUserEntity();
+    Log.Logger.Debug("Getting todos for the user: {UserName}.", user.UserName);
+
     var todos = await todoRepository.GetAllAsync(user.Id);
     return Results.Ok(new ApiResponse<IEnumerable<Todo>>(true, todos));
   }
@@ -53,12 +57,14 @@ public static class TodoCrudEndpoints
   {
     if (string.IsNullOrWhiteSpace(todo.Name))
     {
+      Log.Logger.Debug("Todo creation has failed. Name should not be null or empty.\n{Todo}", JsonSerializer.Serialize(todo));
       return Results.BadRequest(NameIsRequiredError);
     }
 
     var user = principal.ToUserEntity();
-
     var newTodo = await todoRepository.CreateAsync(todo, user.Id);
+
+    Log.Logger.Debug("Todo has been created for user: {UserName}.\n{Todo}", user.UserName, JsonSerializer.Serialize(todo));
     return Results.Created($"api/todo/{newTodo.Id}", new ApiResponse<Todo>(true, newTodo));
   }
 
@@ -71,15 +77,21 @@ public static class TodoCrudEndpoints
   {
     if (string.IsNullOrWhiteSpace(todo.Name))
     {
+      Log.Logger.Debug("Todo update has failed. Name should not be null or empty.\n{Todo}", JsonSerializer.Serialize(todo));
       return Results.BadRequest(new ApiResponse<object>(false, todo, NameIsRequiredError));
     }
 
     var user = principal.ToUserEntity();
-
     var updated = await todoRepository.UpdateAsync(id, todo, user.Id);
-    return updated is { IsNull: true }
-      ? Results.NotFound()
-      : Results.Ok(new ApiResponse<Todo>(true, updated));
+
+    if (updated is { IsNull: true })
+    {
+      Log.Logger.Debug("Todo {id} update has failed.\n{Todo}", id, JsonSerializer.Serialize(todo));
+      return Results.NotFound();
+    }
+
+    Log.Logger.Debug("Todo {id} is getting updated.\n{Todo}", id, JsonSerializer.Serialize(todo));
+    return Results.Ok(new ApiResponse<Todo>(true, updated));
   }
 
   [Authorize]
@@ -89,11 +101,15 @@ public static class TodoCrudEndpoints
     ClaimsPrincipal principal)
   {
     var user = principal.ToUserEntity();
-
     var deleted = await todoRepository.DeleteAsync(id, user.Id);
 
-    return deleted is { IsNull: true }
-      ? Results.NotFound()
-      : Results.Ok(new ApiResponse<Todo>(true, deleted));
+    if (deleted is { IsNull: true })
+    {
+      Log.Logger.Debug("Todo {id} deletion has failed.\n{Todo}", id, JsonSerializer.Serialize(deleted));
+      return Results.NotFound();
+    }
+
+    Log.Logger.Debug("Todo {id} is getting deleted.\n{Todo}", id, JsonSerializer.Serialize(deleted));
+    return Results.Ok(new ApiResponse<Todo>(true, deleted));
   }
 }

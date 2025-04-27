@@ -18,8 +18,13 @@ services:
       - Jwt__Audience
       - Jwt__Secret
       - Jwt__ValidityHours
+      - Serilog__MinimumLevel__EntityFrameworkCore
+      - Serilog__MinimumLevel__Npgsql
+      - Serilog__MinimumLevel__Identity.Service
     depends_on:
       - db
+    volumes:
+      - ./logs/Identity.Service:/app/logs
     networks:
       - backend
 
@@ -40,9 +45,14 @@ services:
       - Jwt__Audience
       - Jwt__Secret
       - Jwt__ValidityHours
+      - Serilog__MinimumLevel__EntityFrameworkCore
+      - Serilog__MinimumLevel__Npgsql
+      - Serilog__MinimumLevel__TodoList.Service
     depends_on:
       - db
       - identityservice
+    volumes:
+      - ./logs/TodoList.Service:/app/logs
     networks:
       - backend
 
