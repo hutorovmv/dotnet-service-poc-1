@@ -7,7 +7,7 @@ builder.Services.RegisterServices(builder.Configuration);
 builder.Services.RegisterAspNetServices(builder);
 
 var app = builder
-  .ConfigureKestrel()
+  .ConfigureBuilder()
   .Build();
 app.ConfigureWebApplication();
 app.RegisterIdentityEndpoints();
