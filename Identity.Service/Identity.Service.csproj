@@ -21,7 +21,7 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
 
     <PackageReference Include="NSwag.AspNetCore" Version="14.3.0" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.8.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.9.0" />
 
     <PackageReference Include="CorrelationId" Version="3.0.1" />
     <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
@@ -29,7 +29,7 @@
     <PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.1" />
     <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
-    <PackageReference Include="Service.Utils" Version="[1.0.1,999.0.0]" />
+    <PackageReference Include="Service.Utils" Version="1.0.3" />
   </ItemGroup>
 
 </Project>
