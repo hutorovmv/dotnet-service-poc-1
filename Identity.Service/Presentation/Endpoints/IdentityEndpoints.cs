@@ -2,6 +2,7 @@ using Identity.Service.Infrastructure.Services;
 using Identity.Service.Presentation.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using Service.Utils.Models;
 
 namespace TodoList.Service.Presentation.Endpoints;
@@ -29,13 +30,18 @@ public static class IdentityEndpoints
     };
     var result = await userManager.CreateAsync(user, model.Password);
 
-    return result.Succeeded
-      ? Results.Created("", new ApiResponse<object>(true))
-      : Results.BadRequest(new ApiResponse<UserRegistrationModel>(
-          false,
-          model,
-          result.Errors.Select(e => e.Description).ToArray()
-        ));
+    if (result.Succeeded)
+    {
+      Log.Logger.Debug("User creationg has succeeded; User email: {Email}.", model.Email);
+      return Results.Created("", new ApiResponse<object>(true));
+    }
+
+    Log.Logger.Debug("User creationg has not succeeded; User email: {Email}.", model.Email);
+    return Results.BadRequest(new ApiResponse<UserRegistrationModel>(
+      false,
+      model,
+      [.. result.Errors.Select(e => e.Description)]
+    ));
   }
 
   private static async Task<IResult> LoginAsync(
@@ -47,16 +53,20 @@ public static class IdentityEndpoints
     var user = await userManager.FindByNameAsync(model.UserName);
     if (user == null)
     {
+      Log.Logger.Debug("User login has not succeeded; The login model is empty.");
       return Results.Unauthorized();
     }
 
     var passwordCheck = await signInManager.CheckPasswordSignInAsync(user, model.Password, false);
     if (!passwordCheck.Succeeded)
     {
+      Log.Logger.Debug("User login has not succeeded; The login model is empty.");
       return Results.Unauthorized();
     }
 
     var token = tokenService.GenerateToken(user);
+    Log.Logger.Debug("User login has succeeded; Username: {Username}", model.UserName);
+
     return Results.Ok(new ApiResponse<LoginResponseModel>(
       true,
       new LoginResponseModel(token, user.Id, user.UserName ?? "")

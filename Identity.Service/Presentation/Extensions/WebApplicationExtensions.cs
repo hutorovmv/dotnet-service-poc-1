@@ -1,3 +1,4 @@
+using CorrelationId;
 using Identity.Service.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Service.Utils.Middlewares;
@@ -12,7 +13,8 @@ public static class WebApplicationExtensions
       .ConfigureSwagger()
       .ConfigureDatabase()
       .ConfigureHttps()
-      .ConfigureMiddleware();
+      .ConfigureMiddleware()
+      .UseCorrelationId();
   }
 
   private static WebApplication ConfigureSwagger(this WebApplication app)
@@ -51,7 +53,6 @@ public static class WebApplicationExtensions
 
   private static WebApplication ConfigureMiddleware(this WebApplication app)
   {
-    app.UseMiddleware<CorrelationIdMiddleware>();
     app.UseMiddleware<ExceptionsMiddleware>();
     return app;
   }

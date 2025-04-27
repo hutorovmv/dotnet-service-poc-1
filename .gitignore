@@ -49,6 +49,7 @@ TestResult.xml
 nunit-*.xml
 
 .vs
+logs/*
 
 # Contains launch.json for the services debug
 !.vscode/

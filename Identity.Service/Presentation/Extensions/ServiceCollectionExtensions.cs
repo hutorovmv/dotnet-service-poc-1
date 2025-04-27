@@ -1,8 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using Identity.Service.Infrastructure.Services;
 using Identity.Service.Infrastructure.Contexts;
 using Identity.Service.Infrastructure.Models.Options;
+using CorrelationId.DependencyInjection;
 
 namespace Identity.Service.Presentation.Extensions;
 
@@ -12,6 +11,7 @@ public static class ServiceCollectionExtensions
   {
     services
       .AddAuth(builder)
+      .AddCorrelationId()
       .AddSwagger()
       .ConfigureCors(builder);
   }
@@ -22,6 +22,18 @@ public static class ServiceCollectionExtensions
     services.AddIdentity<IdentityUser, IdentityRole>()
       .AddEntityFrameworkStores<IdentityContext>()
       .AddDefaultTokenProviders();
+
+    return services;
+  }
+
+  private static IServiceCollection AddCorrelationId(this IServiceCollection services)
+  {
+    services.AddDefaultCorrelationId(options =>
+    {
+        options.IncludeInResponse = true;
+        options.RequestHeader = "X-Correlation-ID";
+        options.UpdateTraceIdentifier = true;
+    });
 
     return services;
   }
@@ -56,6 +68,7 @@ public static class ServiceCollectionExtensions
         );
       }
     });
+
     return services;
   }
 }
