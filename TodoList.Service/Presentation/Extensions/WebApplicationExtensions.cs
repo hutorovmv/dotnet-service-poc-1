@@ -13,7 +13,8 @@ public static class WebApplicationExtensions
       .ConfigureAuth()
       .ConfigureDatabase()
       .ConfigureHttps()
-      .ConfigureMiddleware();
+      .ConfigureMiddleware()
+      .ConfigureCache();
   }
 
   private static WebApplication ConfigureSwagger(this WebApplication app)
@@ -62,6 +63,15 @@ public static class WebApplicationExtensions
   {
     app.UseMiddleware<CorrelationIdMiddleware>();
     app.UseMiddleware<ExceptionsMiddleware>();
+
+    return app;
+  }
+
+  private static WebApplication ConfigureCache(this WebApplication app)
+  {
+    app.UseOutputCache();
+    app.UseResponseCaching();
+
     return app;
   }
 }

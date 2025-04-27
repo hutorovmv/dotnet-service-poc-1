@@ -14,6 +14,7 @@ public static class WebApplicationExtensions
       .ConfigureDatabase()
       .ConfigureHttps()
       .ConfigureMiddleware()
+      .ConfigureCache()
       .UseCorrelationId();
   }
 
@@ -54,6 +55,14 @@ public static class WebApplicationExtensions
   private static WebApplication ConfigureMiddleware(this WebApplication app)
   {
     app.UseMiddleware<ExceptionsMiddleware>();
+    return app;
+  }
+
+  private static WebApplication ConfigureCache(this WebApplication app)
+  {
+    app.UseOutputCache();
+    app.UseResponseCaching();
+
     return app;
   }
 }

@@ -16,7 +16,7 @@ public static class IdentityEndpoints
   public static void RegisterIdentityEndpoints(this WebApplication app)
   {
     app.MapPost($"{Prefix}/register", RegisterAsync).WithTags(tags);
-    app.MapPost($"{Prefix}/login", LoginAsync).WithTags(tags);
+    app.MapPost($"{Prefix}/login", LoginAsync);
   }
 
   private static async Task<IResult> RegisterAsync(
