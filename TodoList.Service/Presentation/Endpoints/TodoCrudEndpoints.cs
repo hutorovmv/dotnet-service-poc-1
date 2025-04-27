@@ -1,7 +1,9 @@
 using System.Security.Claims;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Serilog;
+using Service.Utils;
 using Service.Utils.Models;
 using TodoList.Service.Domain.Entities;
 using TodoList.Service.Domain.Repositories;
@@ -17,8 +19,31 @@ public static class TodoCrudEndpoints
 
   public static void RegisterTodoCrudEndpoints(this WebApplication app)
   {
-    app.MapGet($"{Prefix}/{{id}}", GetAsync).WithTags(tags);
-    app.MapGet($"{Prefix}/all", GetAllAsync).WithTags(tags);
+    app.MapGet($"{Prefix}/{{id}}", GetAsync)
+      .WithTags(tags)
+      .CacheOutput(p =>
+        p.Expire(TimeSpan.FromSeconds(ApiUtilConstants.CacheTTL.Warm))
+         .SetVaryByQuery("id")
+         .SetVaryByHeader(ApiUtilConstants.Headers.Authorization)
+         .Tag("Todo"))
+      .WithMetadata(new ResponseCacheAttribute
+      {
+        VaryByQueryKeys = ["id"],
+        VaryByHeader = ApiUtilConstants.Headers.Authorization,
+        Duration = ApiUtilConstants.CacheTTL.Warm
+      });
+    app.MapGet($"{Prefix}/all", GetAllAsync)
+      .WithTags(tags)
+      .CacheOutput(p =>
+        p.Expire(TimeSpan.FromSeconds(ApiUtilConstants.CacheTTL.Warm))
+         .SetVaryByHeader(ApiUtilConstants.Headers.Authorization)
+         .Tag("Todo_All"))
+      .WithMetadata(new ResponseCacheAttribute
+      {
+        VaryByHeader = ApiUtilConstants.Headers.Authorization,
+        Duration = ApiUtilConstants.CacheTTL.Warm
+      });
+
     app.MapPost($"{Prefix}", CreateAsync).WithTags(tags);
     app.MapPost($"{Prefix}/{{id}}", UpdateAsync).WithTags(tags);
     app.MapDelete($"{Prefix}/{{id}}", DeleteAsync).WithTags(tags);

@@ -13,7 +13,8 @@ public static class ServiceCollectionExtensions
       .AddAuth(builder)
       .AddCorrelationId()
       .AddSwagger()
-      .ConfigureCors(builder);
+      .ConfigureCors(builder)
+      .ConfigureCache();
   }
 
   private static IServiceCollection AddAuth(this IServiceCollection services, WebApplicationBuilder builder)
@@ -68,6 +69,14 @@ public static class ServiceCollectionExtensions
         );
       }
     });
+
+    return services;
+  }
+
+  private static IServiceCollection ConfigureCache(this IServiceCollection services)
+  {
+    services.AddOutputCache();
+    services.AddResponseCaching();
 
     return services;
   }
