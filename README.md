@@ -43,7 +43,7 @@ For debugging (includes *pgadmin* and *vsdbg*):
 docker compose -f docker-compose.yml -f docker-compose.debug.yml up --build
 ```
 
-> 📝 **Note:** Use `--build` when updating image versions.
+> 🖊️ **Note:** Use `--build` when updating image versions.
 
 ### Service Endpoints
 
@@ -58,6 +58,8 @@ docker compose -f docker-compose.yml -f docker-compose.debug.yml up --build
 | `http://localhost:5050`          | PgAdmin                     | Database GUI               | Dev mode only                     | `admin@admin.com`  | `admin`           |
 
 ### 🔒 Https:
+
+> 🖊️ **Note**: On Windows you can use `npm run generate:certs` to generate both dotnet and client certs with PowerShell scripts (dotnet has to be installed).
 
 To avoid browser HTTPS warnings from the Swagger, generate and install `develpment.pfx` (password: `1111`) to Trusted Root Certification Authorities.
 This enables trusted HTTPS in development (`ASPNETCORE_ENVIRONMENT=Development`).
