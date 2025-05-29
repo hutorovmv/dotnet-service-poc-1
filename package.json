@@ -5,6 +5,9 @@
     "husky": "^8.0.0"
   },
   "scripts": {
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "generate:dotnet-cert": "powershell -ExecutionPolicy Bypass -File ./scripts/generate-dotnet-cert.ps1",
+    "generate:client-cert": "powershell -ExecutionPolicy Bypass -File ./scripts/generate-client-cert.ps1",
+    "generate:certs": "npm run generate:dotnet-cert && npm run generate:client-cert"
   }
 }
