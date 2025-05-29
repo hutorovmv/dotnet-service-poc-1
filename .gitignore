@@ -60,3 +60,5 @@ node_modules
 !.vsdbg
 # Do not ignore local nugets folder
 !packages
+
+certs

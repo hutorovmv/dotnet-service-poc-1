@@ -47,16 +47,34 @@ docker compose -f docker-compose.yml -f docker-compose.debug.yml up --build
 
 ### Service Endpoints
 
-| **URL**                        | **Resource**                | **Purpose**                | **Comment**                      | **User**           | **Password**      |
-|---------------------------------|-----------------------------|----------------------------|-----------------------------------|--------------------|-------------------|
-| `https://localhost:8444/`      | Identity Service            | User management            | -                                 | -                  | -                 |
-| `https://localhost:8443/`      | TodoList Service            | Todo management            | -                                 | -                  | -                 |
-| `https://localhost:8444/swagger` | Identity Service Swagger   | API playground             | -                                 | -                  | -                 |
-| `https://localhost:8443/swagger` | TodoList Service Swagger   | API playground             | -                                 | -                  | -                 |
-| `https://localhost:5432`       | PostgreSQL Server           | Main database              | -                                 | `postgres`         | `postgres`        |
-| `http://localhost:5050`        | PgAdmin                     | Database GUI               | Dev mode only                     | `admin@admin.com`  | `admin`           |
+| **URL**                          | **Resource**                | **Purpose**                | **Comment**                       | **User**           | **Password**      |
+|----------------------------------|-----------------------------|----------------------------|-----------------------------------|--------------------|-------------------|
+| `https://localhost:4000/`        | Client                      | Client (In Progress)       | -                                 | -                  | -                 |
+| `https://localhost:8444/`        | Identity Service            | User management            | -                                 | -                  | -                 |
+| `https://localhost:8443/`        | TodoList Service            | Todo management            | -                                 | -                  | -                 |
+| `https://localhost:8444/swagger` | Identity Service Swagger    | API playground             | -                                 | -                  | -                 |
+| `https://localhost:8443/swagger` | TodoList Service Swagger    | API playground             | -                                 | -                  | -                 |
+| `https://localhost:5432`         | PostgreSQL Server           | Main database              | -                                 | `postgres`         | `postgres`        |
+| `http://localhost:5050`          | PgAdmin                     | Database GUI               | Dev mode only                     | `admin@admin.com`  | `admin`           |
 
-> 🖊️ **Tip:** To avoid browser HTTPS warnings, install `develpment.pfx` (password: `1111`) to Trusted Root Certification Authorities. This enables trusted HTTPS in development (`ASPNETCORE_ENVIRONMENT=Development`).
+### 🔒 Https:
+
+To avoid browser HTTPS warnings from the Swagger, generate and install `develpment.pfx` (password: `1111`) to Trusted Root Certification Authorities.
+This enables trusted HTTPS in development (`ASPNETCORE_ENVIRONMENT=Development`).
+
+```
+dotnet dev-certs https --export-path certs/https/develpment.pfx --password 1111
+dotnet dev-certs https --trust
+```
+
+---
+
+To avoid browser HTTPS warnings from the client execute the following (for Windows):
+
+```
+mkcert -install
+mkcert -key-file ./TodoList.Client/certs/nginx.key -cert-file ./TodoList.Client/certs/nginx.crt localhost
+```
 
 ## Authorization
 
