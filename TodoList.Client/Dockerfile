@@ -3,8 +3,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
+ARG ANGULAR_ENVIRONMENT
 COPY . .
-RUN npm run build
+RUN npx ng build --configuration=${ANGULAR_ENVIRONMENT}
 
 FROM node:slim
 WORKDIR /app

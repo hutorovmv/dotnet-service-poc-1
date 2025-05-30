@@ -71,7 +71,12 @@ services:
       - backend
 
   todolistclient:
-    build: ./TodoList.Client
+    build:
+      context: ./TodoList.Client
+      args:
+        ANGULAR_ENVIRONMENT: ${ANGULAR_ENVIRONMENT:-development}
+    environment:
+      - ANGULAR_ENVIRONMENT
     ports:
       - "4000:4000"
     networks:
