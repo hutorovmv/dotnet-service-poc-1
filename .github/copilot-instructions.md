@@ -1,47 +1,47 @@
 # Copilot Coding Instructions: Microsoft .NET C# Coding Conventions
 
 1. **General Principles**
-   - Write code that is correct, clear, consistent, and easy to maintain.
-   - Prefer modern C# language features and avoid outdated constructs.
-   - Use async/await for I/O-bound operations and LINQ for collections.
+    - Write code that is correct, clear, consistent, and easy to maintain.
+    - Prefer modern C# language features and avoid outdated constructs.
+    - Use async/await for I/O-bound operations and LINQ for collections.
 
 2. **Naming and Layout**
-   - Use PascalCase for class, record, and method names.
-   - Use camelCase for local variables and parameters (except record primary constructor parameters, which use PascalCase).
-   - Use four spaces for indentation, not tabs.
-   - Use the Allman style for braces (open/close on their own lines).
-   - Limit lines to 65 characters for readability.
+    - Use PascalCase for class, record, and method names.
+    - Use camelCase for local variables and parameters (except record primary constructor parameters, which use PascalCase).
+    - Use four spaces for indentation, not tabs.
+    - Use the Allman style for braces (open/close on their own lines).
+    - Limit lines to 65 characters for readability.
 
 3. **Namespaces and Usings**
-   - Use file-scoped namespace declarations.
-   - Place all using directives outside the namespace declaration.
+    - Use file-scoped namespace declarations.
+    - Place all using directives outside the namespace declaration.
 
 4. **Variables and Types**
-   - Use implicit typing (`var`) only when the type is obvious from the right side.
-   - Use explicit types when the type is not clear.
-   - Use language keywords (`string`, `int`, etc.) instead of .NET type names.
+    - Use implicit typing (`var`) only when the type is obvious from the right side.
+    - Use explicit types when the type is not clear.
+    - Use language keywords (`string`, `int`, etc.) instead of .NET type names.
 
 5. **Strings**
-   - Use string interpolation for concatenation.
-   - Prefer raw string literals for multi-line or escape-heavy strings.
-   - Use StringBuilder for appending strings in loops.
+    - Use string interpolation for concatenation.
+    - Prefer raw string literals for multi-line or escape-heavy strings.
+    - Use StringBuilder for appending strings in loops.
 
 6. **Collections and Initialization**
-   - Use collection expressions to initialize collections.
-   - Use object initializers for object creation.
+    - Use collection expressions to initialize collections.
+    - Use object initializers for object creation.
 
 7. **Delegates and Events**
-   - Use `Func<>` and `Action<>` instead of custom delegate types when possible.
-   - Use lambda expressions for event handlers that do not need to be removed.
+    - Use `Func<>` and `Action<>` instead of custom delegate types when possible.
+    - Use lambda expressions for event handlers that do not need to be removed.
 
 8. **Exception Handling**
-   - Use try-catch for exception handling; only catch exceptions you can handle.
-   - Use specific exception types, not general `Exception`.
-   - Use the `using` statement or new using declaration syntax for disposables.
+    - Use try-catch for exception handling; only catch exceptions you can handle.
+    - Use specific exception types, not general `Exception`.
+    - Use the `using` statement or new using declaration syntax for disposables.
 
 9. **Operators and Expressions**
-   - Use `&&` and `||` for logical operations, not `&` or `|` for comparisons.
-   - Use parentheses to clarify complex expressions.
+    - Use `&&` and `||` for logical operations, not `&` or `|` for comparisons.
+    - Use parentheses to clarify complex expressions.
 
 10. **LINQ**
     - Use meaningful variable names in queries.
@@ -59,4 +59,32 @@
 
 ---
 
-For more details, see the [official Microsoft C# coding conventions](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions).
+# Prettier Style Guide for Angular, TypeScript, and RxJS
+
+**Formatting Rules:**
+- Use Prettier for code formatting in Angular and TypeScript projects.
+- Use the following Prettier configuration (see `.prettierrc`):
+    - Semicolons: `true`
+    - Single quotes: `true`
+    - Print width: `100`
+    - Tab width: `2`
+    - Trailing commas: `all`
+    - Bracket spacing: `true`
+    - Arrow parens: `always`
+    - End of line: `lf`
+    - TypeScript files (`*.ts`, `*.tsx`) use the TypeScript parser
+    - Angular template files (`*.component.html`) use the Angular parser
+
+**Ignored Files and Folders:**
+- Exclude files and folders from formatting as specified in `.prettierignore`:
+    - `node_modules/`, `dist/`, `build/`, `coverage/`
+    - `.env`, `*.local`, `*.env.*`
+    - `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`
+    - `*.js`, `*.d.ts`, `*.map`
+    - `.angular/`, `*.log`
+    - `.vscode/`, `.idea/`, `.DS_Store`
+    - `certs/`, `*.pfx`, `*.key`, `*.crt`
+
+---
+
+For more details, see the [official Microsoft C# coding conventions](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions) and [Prettier documentation](https://prettier.io/docs/en/options.html).
