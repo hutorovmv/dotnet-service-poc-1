@@ -1,7 +1,7 @@
 FROM node:slim as builder
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 ARG ANGULAR_ENVIRONMENT
 COPY . .
