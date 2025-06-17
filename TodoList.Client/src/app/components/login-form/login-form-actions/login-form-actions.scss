@@ -1,0 +1,16 @@
+@use '@angular/material' as mat;
+
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-around;
+  max-width: 400px;
+
+  button {
+    @include mat.button-overrides((
+      filled-label-text-size: 1rem,
+      text-label-text-size: 0.875rem
+    ))
+  }
+}

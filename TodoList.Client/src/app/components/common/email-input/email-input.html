@@ -1,0 +1,18 @@
+<mat-form-field
+  class="email-input"
+  appearance="outline">
+  <mat-label>Email</mat-label>
+  <input
+    matInput
+    type="email"
+    placeholder="Email"
+    class="email-input__input"
+    [formControl]="emailControl"
+    [errorStateMatcher]="errorStateMatcher">
+  @if (isEmailInvalid()) {
+    <mat-error>Email is not valid.</mat-error>
+  }
+  @if (isEmailEmpty()) {
+    <mat-error>Email is not entered.</mat-error>
+  }
+</mat-form-field>
