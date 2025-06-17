@@ -32,6 +32,9 @@ The `Service.Utils` package (local NuGet source) provides shared utilities for M
 ### Wiki
 
 For more information check repo [Wiki](https://github.com/hutorovmv/dotnet-microservices-template/wiki)
+**Important:**
+ - [Run the containers](https://github.com/hutorovmv/dotnet-microservices-template/wiki/Docker)
+ - [Access Resources](https://github.com/hutorovmv/dotnet-microservices-template/wiki/Resources)
 
 ## Screenshots
 
