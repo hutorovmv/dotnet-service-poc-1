@@ -1,6 +1,6 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
-@use 'src/theme/default/_default-light-theme-colors' as light-palette;
+@use '../../../theme/default/default-light-theme-colors' as light-palette;
 
 
 .login-form {
