@@ -13,8 +13,10 @@ A modern .NET microservices starter template. This solution demonstrates best pr
 - **PostgreSQL** (database)
 - **Entity Framework** (ORM)
 - **Docker & Docker Compose** (containerization)
-- **GitHub Actions** (CI/CD)
 - **PgAdmin** (database management)
+- **GitHub Actions** (CI/CD)
+- **Copilot** (copilot-instructions, MCP)
+  
 
 ### Services
 
@@ -27,123 +29,9 @@ All services run in isolated Docker containers. Start the full stack with Docker
 
 The `Service.Utils` package (local NuGet source) provides shared utilities for Minimal APIs.
 
-## Getting Started
+### Wiki
 
-### Running the Stack
-
-Start all services:
-
-```sh
-docker compose -f docker-compose.yml up --build
-```
-
-For debugging (includes *pgadmin* and *vsdbg*):
-
-```sh
-docker compose -f docker-compose.yml -f docker-compose.debug.yml up --build
-```
-
-> 🖊️ **Note:** Use `--build` when updating image versions.
-
-### Service Endpoints
-
-| **URL**                          | **Resource**                | **Purpose**                | **Comment**                       | **User**           | **Password**      |
-|----------------------------------|-----------------------------|----------------------------|-----------------------------------|--------------------|-------------------|
-| `https://localhost:4000/`        | Client                      | Client (In Progress)       | -                                 | -                  | -                 |
-| `https://localhost:8444/`        | Identity Service            | User management            | -                                 | -                  | -                 |
-| `https://localhost:8443/`        | TodoList Service            | Todo management            | -                                 | -                  | -                 |
-| `https://localhost:8444/swagger` | Identity Service Swagger    | API playground             | -                                 | -                  | -                 |
-| `https://localhost:8443/swagger` | TodoList Service Swagger    | API playground             | -                                 | -                  | -                 |
-| `https://localhost:5432`         | PostgreSQL Server           | Main database              | -                                 | `postgres`         | `postgres`        |
-| `http://localhost:5050`          | PgAdmin                     | Database GUI               | Dev mode only                     | `admin@admin.com`  | `admin`           |
-
-### 🔒 Https:
-
-> 🖊️ **Note**: On Windows you can use `npm run generate:certs` to generate both dotnet and client certs with PowerShell scripts (dotnet has to be installed).
-
-To avoid browser HTTPS warnings from the Swagger, generate and install `develpment.pfx` (password: `1111`) to Trusted Root Certification Authorities.
-This enables trusted HTTPS in development (`ASPNETCORE_ENVIRONMENT=Development`).
-
-```
-dotnet dev-certs https --export-path certs/https/develpment.pfx --password 1111
-dotnet dev-certs https --trust
-```
-
----
-
-To avoid browser HTTPS warnings from the client execute the following (for Windows):
-
-```
-mkcert -install
-mkcert -key-file ./TodoList.Client/certs/nginx.key -cert-file ./TodoList.Client/certs/nginx.crt localhost
-```
-
-## Authorization
-
-To access protected endpoints in `TodoList.Service`, include a Bearer token in the `Authorization` header.
-
-**Example Request:**
-
-```js
-const token = "<token>";
-
-fetch('https://localhost:8443/api/todo', {
-  method: 'POST',
-  headers: {
-    'Authorization': `Bearer ${token}`,
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    id: 0,
-    name: "string",
-    isComplete: true
-  })
-})
-.then(res => res.json())
-.then(data => console.log(data))
-.catch(err => console.error(err));
-```
-
-## Commit Quality
-
-- **Commitlint** enforces [Conventional Commits](https://www.conventionalcommits.org/).
-- **Husky** runs commit checks automatically.
-
-## Copilot Integration
-
-Advanced GitHub Copilot features are configured:
-
-- `.github/copilot-instructions.md` – Coding conventions for generated code
-- `.github/copilot/commit-prompt.md` – Commit message suggestions
-- **MCP** for Copilot DB access via `mcp/postgres #query`
-
-<details>
-<summary>Copilot Configuration Example</summary>
-
-```json
-"github.copilot.chat.commitMessageGeneration.instructions": [
-  {
-    "file": ".github/copilot/commit-prompt.md"
-  }
-],
-"mcp": {
-  "servers": {
-    "postgres": {
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "--network",
-        "dotnet-microservices-template_backend",
-        "mcp/postgres",
-        "postgresql://postgres:postgres@db:5432/todolist"
-      ]
-    }
-  }
-}
-```
-</details>
+For more information check repo [Wiki](https://github.com/hutorovmv/dotnet-microservices-template/wiki)
 
 ## Screenshots
 
