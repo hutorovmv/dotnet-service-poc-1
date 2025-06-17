@@ -1,0 +1,33 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+@use 'src/theme/default/_default-light-theme-colors' as light-palette;
+
+
+.login-form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+
+  &__header {
+    margin: 0 auto 1.75rem;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    margin: auto;
+    padding: 1.25rem;
+    min-width: 400px;
+
+    @include mat.card-overrides((
+      elevated-container-color: map.get(map.get(light-palette.$primary-palette, neutral), 94),
+      elevated-container-elevation: 24
+    ));
+  }
+
+  &__form {
+    width: 100%;
+  }
+}
