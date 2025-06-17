@@ -9,6 +9,9 @@ services:
       - "8081:8080" # http
       - "8444:8443" # https
       - "5001:5005" # debug
+    profiles:
+      - backend
+      - identity
     environment:
       - ASPNETCORE_ENVIRONMENT
       - ASPNETCORE__Kestrel__Certificates__Default__Path
@@ -36,6 +39,9 @@ services:
      - "8080:8080" # http
      - "8443:8443" # https
      - "5002:5005" # debug
+    profiles:
+      - backend
+      - todolist
     environment:
       - ASPNETCORE_ENVIRONMENT
       - ASPNETCORE__Kestrel__Certificates__Default__Path
@@ -56,6 +62,20 @@ services:
     networks:
       - backend
 
+  todolistclient:
+    build:
+      context: ./TodoList.Client
+      args:
+        ANGULAR_ENVIRONMENT: ${ANGULAR_ENVIRONMENT:-development}
+    profiles:
+      - frontend
+    environment:
+      - ANGULAR_ENVIRONMENT
+    ports:
+      - "4000:4000"
+    networks:
+      - backend
+
   db:
     image: postgres:16
     restart: always
@@ -63,6 +83,9 @@ services:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
       - POSTGRES_DB
+    profiles:
+      - backend
+      - tools
     ports:
       - "5432:5432"
     volumes:
@@ -70,15 +93,19 @@ services:
     networks:
       - backend
 
-  todolistclient:
-    build:
-      context: ./TodoList.Client
-      args:
-        ANGULAR_ENVIRONMENT: ${ANGULAR_ENVIRONMENT:-development}
-    environment:
-      - ANGULAR_ENVIRONMENT
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
     ports:
-      - "4000:4000"
+      - "5050:80"
+    profiles:
+      - tools
+      - pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL
+      - PGADMIN_DEFAULT_PASSWORD
+    depends_on:
+      - db
     networks:
       - backend
 
