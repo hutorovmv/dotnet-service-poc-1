@@ -32,6 +32,34 @@
         "/app":"${worspaceFolder}/TodoList.Service"
       },
       "justMyCode": true
+    },
+    {
+      "name": "Identity.Service .NET Launch (web)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-identity-service",
+      "program": "${workspaceFolder}/Identity.Service/bin/Debug/net9.0/Identity.Service.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/Identity.Service",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "uriFormat": "https://localhost:8444"
+      },
+    },
+    {
+      "name": "TodoList.Service .NET Launch (web)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-todolist-service",
+      "program": "${workspaceFolder}/TodoList.Service/bin/Debug/net9.0/TodoList.Service.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/TodoList.Service",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "uriFormat": "https://localhost:8443"
+      },
     }
   ],
 }

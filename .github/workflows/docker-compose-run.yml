@@ -15,22 +15,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Install NPM dependencies
+        run: npm ci
+
       - name: Generate .NET Dev Certificate
         run: |
-          mkdir -p certs/https
-          dotnet dev-certs https -ep certs/https/development.pfx -p "1111"
-
-      - name: Generate Client Dev Certificate
-        run: |
-          mkdir -p TodoList.Client/certs
-          openssl req -x509 -newkey rsa:2048 -nodes -days 365 \
-            -keyout TodoList.Client/certs/key.key \
-            -out TodoList.Client/certs/cert.crt \
-            -subj "/CN=localhost"
+          npm run generate:certs
 
       - name: Run Docker Compose
         run: |
-          docker compose -f docker-compose.yml up -d --build
+          npm run docker:build
+          npm run docker:fullstack:tools
+
+      - name: Verify if services are running
+        run: docker compose ps
+
+      - name: Smoke test frontend
+        run: curl -k https://localhost:4000 || exit 1
 
       - name: Stop Docker Compose
         if: always()

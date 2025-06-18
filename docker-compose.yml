@@ -62,19 +62,20 @@ services:
     networks:
       - backend
 
-  # todolistclient:
-  #   build:
-  #     context: ./TodoList.Client
-  #     args:
-  #       CLIENT_ENVIRONMENT: ${CLIENT_ENVIRONMENT:-development}
-  #   profiles:
-  #     - frontend
-  #   environment:
-  #     - CLIENT_ENVIRONMENT
-  #   ports:
-  #     - "4000:4000"
-  #   networks:
-  #     - backend
+  todolistclient:
+    build:
+      context: ./todolist-client
+    profiles:
+      - frontend
+    environment:
+      - NODE_ENV
+      - NEXTAPP_HTTPS_PORT
+      - HTTPS_DEVCERT_PASSWORD
+    command: npm run dev:https
+    ports:
+      - "4000:4000"
+    networks:
+      - backend
 
   db:
     image: postgres:16
