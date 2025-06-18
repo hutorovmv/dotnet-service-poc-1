@@ -2,15 +2,16 @@
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
-    "husky": "^8.0.0"
+    "cross-env": "^7.0.3",
+    "husky": "^8.0.0",
+    "shx": "^0.4.0"
   },
   "scripts": {
     "prepare": "husky install",
-    "generate:dotnet-cert": "powershell -ExecutionPolicy Bypass -File ./scripts/generate-dotnet-cert.ps1",
-    "generate:client-cert": "powershell -ExecutionPolicy Bypass -File ./scripts/generate-client-cert.ps1",
-    "generate:certs": "npm run generate:dotnet-cert && npm run generate:client-cert",
+    "generate:certs": "shx mkdir -p ./certs/https && cross-env-shell \"dotnet dev-certs https --clean && dotnet dev-certs https -ep ./certs/https/development.pfx -p 1111 && dotnet dev-certs https --trust && shx rm -rf ./todolist-client/certs/https && shx cp -r ./certs/https ./todolist-client/certs\"",
     "docker:build": "docker compose -f docker-compose.yml build",
     "docker:build:debug": "docker compose -f docker-compose.yml -f docker-compose.debug.yml build",
+    "docker:tools": "docker compose -f docker-compose.yml -f docker-compose.debug.yml --profile tools up",
     "docker:backend:tools": "docker compose -f docker-compose.yml -f docker-compose.debug.yml --profile backend --profile tools up",
     "docker:identity:tools": "docker compose -f docker-compose.yml -f docker-compose.debug.yml --profile identity --profile tools up",
     "docker:fullstack": "docker compose -f docker-compose.yml --profile frontend --profile backend up",

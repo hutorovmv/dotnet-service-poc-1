@@ -1,0 +1,29 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build-todolist-service",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "build",
+				"--configuration",
+				"Debug",
+        "${workspaceFolder}/TodoList.Service/TodoList.Service.csproj"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build-identity-service",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "build",
+				"--configuration",
+				"Debug",
+        "${workspaceFolder}/Identity.Service/Identity.Service.csproj"
+      ],
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}
