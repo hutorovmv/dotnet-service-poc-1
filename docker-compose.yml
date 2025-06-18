@@ -62,19 +62,19 @@ services:
     networks:
       - backend
 
-  todolistclient:
-    build:
-      context: ./TodoList.Client
-      args:
-        ANGULAR_ENVIRONMENT: ${ANGULAR_ENVIRONMENT:-development}
-    profiles:
-      - frontend
-    environment:
-      - ANGULAR_ENVIRONMENT
-    ports:
-      - "4000:4000"
-    networks:
-      - backend
+  # todolistclient:
+  #   build:
+  #     context: ./TodoList.Client
+  #     args:
+  #       CLIENT_ENVIRONMENT: ${CLIENT_ENVIRONMENT:-development}
+  #   profiles:
+  #     - frontend
+  #   environment:
+  #     - CLIENT_ENVIRONMENT
+  #   ports:
+  #     - "4000:4000"
+  #   networks:
+  #     - backend
 
   db:
     image: postgres:16
