@@ -28,6 +28,7 @@ services:
       - db
     volumes:
       - ./logs/Identity.Service:/app/logs
+      - ./certs/https:/app/certs/https:ro
     networks:
       - backend
 
@@ -59,19 +60,18 @@ services:
       - identityservice
     volumes:
       - ./logs/TodoList.Service:/app/logs
+      - ./certs/https:/app/certs/https:ro
     networks:
       - backend
 
   todolistclient:
     build:
-      context: ./todolist-client
+      context: .
+      dockerfile: todolist-client/Dockerfile
     profiles:
       - frontend
     environment:
       - NODE_ENV
-      - NEXTAPP_HTTPS_PORT
-      - HTTPS_DEVCERT_PASSWORD
-    command: npm run dev:https
     ports:
       - "4000:4000"
     networks:

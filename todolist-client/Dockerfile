@@ -1,20 +1,18 @@
 FROM node:20-slim AS builder
 WORKDIR /app
 
-COPY package*.json ./
+COPY todolist-client/package*.json ./
 RUN npm install
 
-COPY . .
+COPY todolist-client .
 RUN npm run build
 
 FROM node:20-slim AS runtime
 WORKDIR /app
 
 COPY --from=builder /app ./
-COPY certs/https /app/certs/https
-
-RUN npm install --global ts-node
+RUN npm install
 
 EXPOSE 4000
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "start"]
