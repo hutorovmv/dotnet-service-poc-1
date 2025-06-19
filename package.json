@@ -15,6 +15,7 @@
     "docker:backend:tools": "docker compose -f docker-compose.yml -f docker-compose.debug.yml --profile backend --profile tools up",
     "docker:identity:tools": "docker compose -f docker-compose.yml -f docker-compose.debug.yml --profile identity --profile tools up",
     "docker:fullstack": "docker compose -f docker-compose.yml --profile frontend --profile backend up",
-    "docker:fullstack:tools": "docker compose -f docker-compose.yml --profile frontend --profile backend --profile tools up"
+    "docker:fullstack:tools": "docker compose -f docker-compose.yml --profile frontend --profile backend --profile tools up",
+    "docker:fullstack:detach": "docker compose -f docker-compose.yml --profile frontend --profile backend up -d"
   }
 }
