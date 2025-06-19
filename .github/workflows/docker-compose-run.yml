@@ -25,7 +25,7 @@ jobs:
       - name: Run Docker Compose
         run: |
           npm run docker:build
-          npm run docker:fullstack:tools
+          npm run docker:fullstack
 
       - name: Verify if services are running
         run: docker compose ps

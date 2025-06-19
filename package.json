@@ -8,7 +8,7 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "generate:certs": "shx mkdir -p ./certs/https && cross-env-shell \"dotnet dev-certs https --clean && dotnet dev-certs https -ep ./certs/https/development.pfx -p 1111 && dotnet dev-certs https --trust && shx rm -rf ./todolist-client/certs/https && shx cp -r ./certs/https ./todolist-client/certs\"",
+    "generate:certs": "shx mkdir -p ./certs/https && cross-env-shell \"dotnet dev-certs https --clean && dotnet dev-certs https -ep ./certs/https/development.pfx -p 1111 && dotnet dev-certs https --trust\"",
     "docker:build": "docker compose -f docker-compose.yml build",
     "docker:build:debug": "docker compose -f docker-compose.yml -f docker-compose.debug.yml build",
     "docker:tools": "docker compose -f docker-compose.yml -f docker-compose.debug.yml --profile tools up",
