@@ -1,6 +1,6 @@
 # Dotnet Microservices Template
 
-[![Build Status](https://github.com/hutorovmv/dotnet-service-poc-1/actions/workflows/docker-compose-run.yml/badge.svg)](https://github.com/hutorovmv/dotnet-service-poc-1/actions/workflows/docker-compose-run.yml)
+[![🚀 Build](https://github.com/hutorovmv/dotnet-microservices-template/actions/workflows/docker-compose-run.yml/badge.svg)](https://github.com/hutorovmv/dotnet-microservices-template/actions/workflows/docker-compose-run.yml)
 
 ## Overview
 
