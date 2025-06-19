@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using NSwag;
 using NSwag.Generation.Processors.Security;
-using TodoList.Service.Infrastructure.Models.Options;
+using Identity.Service.Infrastructure.Models.Options;
 
-namespace TodoList.Service.Presentation.Extensions;
+namespace Identity.Service.Presentation.Extensions;
 
 public static class ServiceCollectionExtensions
 {

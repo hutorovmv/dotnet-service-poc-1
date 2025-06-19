@@ -1,4 +1,4 @@
-namespace Service.Utils;
+namespace Identity.Service.Presentation;
 
 public static class ApiUtilConstants
 {

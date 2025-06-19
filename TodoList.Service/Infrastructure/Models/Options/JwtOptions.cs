@@ -1,4 +1,4 @@
-namespace TodoList.Service.Infrastructure.Models.Options;
+namespace Identity.Service.Infrastructure.Models.Options;
 
 public class JwtOptions
 {

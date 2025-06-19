@@ -1,4 +1,4 @@
-namespace TodoList.Service.Domain.Entities;
+namespace Identity.Service.Domain.Entities;
 
 public class User
 {

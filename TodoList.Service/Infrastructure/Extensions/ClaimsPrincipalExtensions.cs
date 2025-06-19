@@ -1,7 +1,7 @@
 using System.Security.Claims;
-using TodoList.Service.Domain.Entities;
+using Identity.Service.Domain.Entities;
 
-namespace TodoList.Service.Infrastructure.Extensions;
+namespace Identity.Service.Infrastructure.Extensions;
 
 public static class ClaimsPrincipalExtensions
 {

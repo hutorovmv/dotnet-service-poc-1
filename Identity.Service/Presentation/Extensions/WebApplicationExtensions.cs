@@ -1,7 +1,7 @@
 using CorrelationId;
 using Identity.Service.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
-using Service.Utils.Middlewares;
+using Identity.Service.Presentation.Middlewares;
 
 namespace Identity.Service.Presentation.Extensions;
 

@@ -2,7 +2,7 @@ using Serilog;
 using Serilog.Formatting.Compact;
 using Serilog.Sinks.SystemConsole.Themes;
 
-namespace TodoList.Service.Presentation.Extensions;
+namespace Identity.Service.Presentation.Extensions;
 
 public static class WebApplicationBuilderExtensions
 {

@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace TodoList.Service.Migrations
+namespace Identity.Service.Migrations
 {
     /// <inheritdoc />
     public partial class AddTodoUserId : Migration

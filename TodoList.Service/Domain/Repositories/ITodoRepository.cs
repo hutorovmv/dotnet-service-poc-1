@@ -1,6 +1,6 @@
-using TodoList.Service.Domain.Entities;
+using Identity.Service.Domain.Entities;
 
-namespace TodoList.Service.Domain.Repositories;
+namespace Identity.Service.Domain.Repositories;
 
 public interface ITodoRepository
 {

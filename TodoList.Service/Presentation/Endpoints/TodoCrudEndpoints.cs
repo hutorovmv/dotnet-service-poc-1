@@ -3,13 +3,12 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
-using Service.Utils;
-using Service.Utils.Models;
-using TodoList.Service.Domain.Entities;
-using TodoList.Service.Domain.Repositories;
-using TodoList.Service.Infrastructure.Extensions;
+using Identity.Service.Presentation.Models;
+using Identity.Service.Domain.Entities;
+using Identity.Service.Domain.Repositories;
+using Identity.Service.Infrastructure.Extensions;
 
-namespace TodoList.Service.Presentation.Endpoints;
+namespace Identity.Service.Presentation.Endpoints;
 
 public static class TodoCrudEndpoints
 {

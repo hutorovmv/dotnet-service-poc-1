@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace Service.Utils.Middlewares;
+namespace Identity.Service.Presentation.Middlewares;
 
 public class CorrelationIdMiddleware
 {

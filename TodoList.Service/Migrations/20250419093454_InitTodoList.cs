@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace TodoList.Service.Migrations
+namespace Identity.Service.Migrations
 {
     /// <inheritdoc />
     public partial class InitTodoList : Migration

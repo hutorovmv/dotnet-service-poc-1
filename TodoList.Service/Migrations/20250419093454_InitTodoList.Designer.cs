@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using TodoList.Service.Infrastructure;
-using TodoList.Service.Infrastructure.Contexts;
+using Identity.Service.Infrastructure;
+using Identity.Service.Infrastructure.Contexts;
 
 #nullable disable
 
-namespace TodoList.Service.Migrations
+namespace Identity.Service.Migrations
 {
     [DbContext(typeof(TodoListContext))]
     [Migration("20250419093454_InitTodoList")]
