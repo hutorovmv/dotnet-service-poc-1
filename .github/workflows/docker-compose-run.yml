@@ -31,7 +31,7 @@ jobs:
         run: docker compose ps
 
       - name: Smoke test frontend
-        run: curl -k https://localhost:4000 || exit 1
+        run: curl -k http://localhost:4000 || exit 1
 
       - name: Stop Docker Compose
         if: always()
