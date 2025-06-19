@@ -4,7 +4,7 @@ WORKDIR /app
 COPY todolist-client/package*.json ./
 RUN npm install
 
-COPY /todolist-client .
+COPY todolist-client .
 RUN npm run build
 
 FROM node:20-slim AS runtime

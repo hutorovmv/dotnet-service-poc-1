@@ -15,7 +15,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
 WORKDIR /app
 COPY --from=build /app/Identity.Service/out ./
 
-# Only required for debuging in vs code
+# Only required for debugging in vs code
 RUN apt-get update \
   && apt-get install -y unzip curl \
   && mkdir -p /vsdbg \
