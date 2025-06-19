@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using Service.Utils.Middlewares;
-using TodoList.Service.Infrastructure.Contexts;
+using Identity.Service.Presentation.Middlewares;
+using Identity.Service.Infrastructure.Contexts;
 
-namespace TodoList.Service.Presentation.Extensions;
+namespace Identity.Service.Presentation.Extensions;
 
 public static class WebApplicationExtensions
 {

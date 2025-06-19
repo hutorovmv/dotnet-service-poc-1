@@ -1,8 +1,8 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Http;
-using Service.Utils.Models;
+using Identity.Service.Presentation.Models;
 
-namespace Service.Utils.Middlewares;
+namespace Identity.Service.Presentation.Middlewares;
 
 public class ExceptionsMiddleware
 {

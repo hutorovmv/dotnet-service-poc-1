@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using TodoList.Service.Domain.Entities;
+using Identity.Service.Domain.Entities;
 
-namespace TodoList.Service.Infrastructure.Contexts;
+namespace Identity.Service.Infrastructure.Contexts;
 
 public class TodoListContext : DbContext
 {

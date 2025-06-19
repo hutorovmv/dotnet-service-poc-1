@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using TodoList.Service.Domain.Entities;
-using TodoList.Service.Domain.Repositories;
-using TodoList.Service.Infrastructure.Contexts;
+using Identity.Service.Domain.Entities;
+using Identity.Service.Domain.Repositories;
+using Identity.Service.Infrastructure.Contexts;
 
-namespace TodoList.Service.Infrastructure.Repositories;
+namespace Identity.Service.Infrastructure.Repositories;
 
 public class TodoRepository : ITodoRepository
 {

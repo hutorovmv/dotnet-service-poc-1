@@ -16,7 +16,7 @@ A modern .NET microservices starter template. This solution demonstrates best pr
 - **PgAdmin** (database management)
 - **GitHub Actions** (CI/CD)
 - **Copilot** (copilot-instructions, MCP)
-  
+
 
 ### Services
 
@@ -26,8 +26,6 @@ A modern .NET microservices starter template. This solution demonstrates best pr
 - **PgAdmin** – Database GUI (development only)
 
 All services run in isolated Docker containers. Start the full stack with Docker Compose.
-
-The `Service.Utils` package (local NuGet source) provides shared utilities for Minimal APIs.
 
 ### Wiki
 

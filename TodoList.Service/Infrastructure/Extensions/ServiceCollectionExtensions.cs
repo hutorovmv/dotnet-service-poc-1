@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using TodoList.Service.Domain.Repositories;
-using TodoList.Service.Infrastructure.Contexts;
-using TodoList.Service.Infrastructure.Repositories;
+using Identity.Service.Domain.Repositories;
+using Identity.Service.Infrastructure.Contexts;
+using Identity.Service.Infrastructure.Repositories;
 
-namespace TodoList.Service.Infrastructure.Extensions;
+namespace Identity.Service.Infrastructure.Extensions;
 
 public static class ServiceCollectionExtensions
 {

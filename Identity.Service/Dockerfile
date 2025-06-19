@@ -2,11 +2,9 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
 
 COPY Identity.Service/*.csproj ./Identity.Service/
-COPY Identity.Service/nuget.config ./Identity.Service/
-COPY packages ./packages
 
 WORKDIR /app/Identity.Service
-RUN dotnet restore --configfile nuget.config
+RUN dotnet restore
 
 COPY ./Identity.Service .
 RUN dotnet publish Identity.Service.csproj -c Release -o out

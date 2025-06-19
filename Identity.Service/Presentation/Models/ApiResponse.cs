@@ -1,4 +1,4 @@
-namespace Service.Utils.Models;
+namespace Identity.Service.Presentation.Models;
 
 public record ApiResponse<T>(
   bool Success,

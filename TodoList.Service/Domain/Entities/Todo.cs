@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace TodoList.Service.Domain.Entities;
+namespace Identity.Service.Domain.Entities;
 
 public class Todo
 {

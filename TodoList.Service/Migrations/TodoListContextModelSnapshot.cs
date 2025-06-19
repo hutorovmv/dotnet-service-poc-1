@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using TodoList.Service.Infrastructure.Contexts;
+using Identity.Service.Infrastructure.Contexts;
 
 #nullable disable
 
-namespace TodoList.Service.Migrations
+namespace Identity.Service.Migrations
 {
     [DbContext(typeof(TodoListContext))]
     partial class TodoListContextModelSnapshot : ModelSnapshot

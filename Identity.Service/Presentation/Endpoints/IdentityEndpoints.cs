@@ -3,9 +3,8 @@ using Identity.Service.Presentation.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
-using Service.Utils.Models;
 
-namespace TodoList.Service.Presentation.Endpoints;
+namespace Identity.Service.Presentation.Endpoints;
 
 public static class IdentityEndpoints
 {
