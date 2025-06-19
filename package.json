@@ -8,14 +8,14 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "generate:certs": "shx mkdir -p ./certs/https && cross-env-shell \"dotnet dev-certs https --clean && dotnet dev-certs https -ep ./certs/https/development.pfx -p 1111 && dotnet dev-certs https --trust\"",
+    "caddy:trust": "choco install caddy --yes --force && powershell -Command \"Start-Process -NoNewWindow -FilePath 'caddy' -ArgumentList 'run --config Caddyfile'; Start-Sleep -Seconds 5; caddy trust; Stop-Process -Name caddy -Force\"",
     "docker:build": "docker compose -f docker-compose.yml build",
     "docker:build:debug": "docker compose -f docker-compose.yml -f docker-compose.debug.yml build",
-    "docker:tools": "docker compose -f docker-compose.yml -f docker-compose.debug.yml --profile tools up",
-    "docker:backend:tools": "docker compose -f docker-compose.yml -f docker-compose.debug.yml --profile backend --profile tools up",
-    "docker:identity:tools": "docker compose -f docker-compose.yml -f docker-compose.debug.yml --profile identity --profile tools up",
-    "docker:fullstack": "docker compose -f docker-compose.yml --profile frontend --profile backend up",
-    "docker:fullstack:tools": "docker compose -f docker-compose.yml --profile frontend --profile backend --profile tools up",
-    "docker:fullstack:detach": "docker compose -f docker-compose.yml --profile frontend --profile backend up -d"
+    "docker:tools": "docker compose -f docker-compose.yml -f docker-compose.debug.yml --profile tools --profile proxy up",
+    "docker:backend:tools": "docker compose -f docker-compose.yml -f docker-compose.debug.yml --profile backend --profile tools --profile proxy up",
+    "docker:identity:tools": "docker compose -f docker-compose.yml -f docker-compose.debug.yml --profile identity --profile tools --profile proxy up",
+    "docker:fullstack": "docker compose -f docker-compose.yml --profile frontend --profile backend --profile proxy up",
+    "docker:fullstack:tools": "docker compose -f docker-compose.yml --profile frontend --profile backend --profile tools --profile proxy up",
+    "docker:fullstack:detach": "docker compose -f docker-compose.yml --profile frontend --profile backend --profile proxy up -d"
   }
 }

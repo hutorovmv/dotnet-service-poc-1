@@ -6,9 +6,7 @@ services:
       context: .
       dockerfile: Identity.Service/Dockerfile
     ports:
-      - "8081:8080" # http
-      - "8444:8443" # https
-      - "5001:5005" # debug
+      - "8081:8080"
     profiles:
       - backend
       - identity
@@ -28,7 +26,6 @@ services:
       - db
     volumes:
       - ./logs/Identity.Service:/app/logs
-      - ./certs/https:/app/certs/https:ro
     networks:
       - backend
 
@@ -37,9 +34,7 @@ services:
       context: .
       dockerfile: TodoList.Service/Dockerfile
     ports:
-     - "8080:8080" # http
-     - "8443:8443" # https
-     - "5002:5005" # debug
+     - "8080:8080"
     profiles:
       - backend
       - todolist
@@ -60,7 +55,6 @@ services:
       - identityservice
     volumes:
       - ./logs/TodoList.Service:/app/logs
-      - ./certs/https:/app/certs/https:ro
     networks:
       - backend
 
@@ -76,6 +70,22 @@ services:
       - "4000:4000"
     networks:
       - backend
+
+  caddy:
+    image: caddy:2
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - backend
+    profiles:
+      - proxy
 
   db:
     image: postgres:16
@@ -112,6 +122,8 @@ services:
 
 volumes:
   pgdata:
+  caddy_data:
+  caddy_config:
 
 networks:
   backend:

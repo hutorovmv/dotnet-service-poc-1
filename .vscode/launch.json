@@ -44,7 +44,7 @@
       "stopAtEntry": false,
       "serverReadyAction": {
         "action": "openExternally",
-        "uriFormat": "https://localhost:8444"
+        "uriFormat": "http://localhost:8081"
       },
     },
     {
@@ -58,7 +58,7 @@
       "stopAtEntry": false,
       "serverReadyAction": {
         "action": "openExternally",
-        "uriFormat": "https://localhost:8443"
+        "uriFormat": "http://localhost:8081"
       },
     }
   ],

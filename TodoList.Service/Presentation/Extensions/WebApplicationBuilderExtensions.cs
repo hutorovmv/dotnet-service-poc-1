@@ -40,14 +40,7 @@ public static class WebApplicationBuilderExtensions
     {
       builder.WebHost.ConfigureKestrel(options =>
       {
-        options.ListenAnyIP(8080);
-        options.ListenAnyIP(8443, listenOptions =>
-        {
-          listenOptions.UseHttps(
-            builder.Configuration["ASPNETCORE:Kestrel:Certificates:Default:Path"] ?? "",
-            builder.Configuration["ASPNETCORE:Kestrel:Certificates:Default:Password"] ?? ""
-          );
-        });
+        options.ListenAnyIP(builder.Configuration.GetValue<int>("TODOLIST_HTTP_PORT", 8080));
       });
     }
 
