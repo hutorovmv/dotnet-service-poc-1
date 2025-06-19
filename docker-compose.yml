@@ -75,6 +75,8 @@ services:
     image: caddy:2
     container_name: caddy
     restart: unless-stopped
+    profiles:
+      - proxy
     ports:
       - "80:80"
       - "443:443"
@@ -84,8 +86,6 @@ services:
       - caddy_config:/config
     networks:
       - backend
-    profiles:
-      - proxy
 
   db:
     image: postgres:16
@@ -96,7 +96,7 @@ services:
       - POSTGRES_DB
     profiles:
       - backend
-      - tools
+      - db
     ports:
       - "5432:5432"
     volumes:
@@ -111,7 +111,6 @@ services:
       - "5050:80"
     profiles:
       - tools
-      - pgadmin
     environment:
       - PGADMIN_DEFAULT_EMAIL
       - PGADMIN_DEFAULT_PASSWORD

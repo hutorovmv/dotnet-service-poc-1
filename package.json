@@ -13,7 +13,7 @@
     "docker:build:debug": "docker compose -f docker-compose.yml -f docker-compose.debug.yml build",
     "docker:tools": "docker compose -f docker-compose.yml -f docker-compose.debug.yml --profile tools --profile proxy up",
     "docker:backend:tools": "docker compose -f docker-compose.yml -f docker-compose.debug.yml --profile backend --profile tools --profile proxy up",
-    "docker:identity:tools": "docker compose -f docker-compose.yml -f docker-compose.debug.yml --profile identity --profile tools --profile proxy up",
+    "docker:identity:tools": "docker compose -f docker-compose.yml -f docker-compose.debug.yml --profile identity --profile db --profile tools --profile proxy up",
     "docker:fullstack": "docker compose -f docker-compose.yml --profile frontend --profile backend --profile proxy up",
     "docker:fullstack:tools": "docker compose -f docker-compose.yml --profile frontend --profile backend --profile tools --profile proxy up",
     "docker:fullstack:detach": "docker compose -f docker-compose.yml --profile frontend --profile backend --profile proxy up -d"
